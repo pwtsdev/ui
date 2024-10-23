@@ -9,7 +9,7 @@ export default defineConfig({
   reporter: 'html',
   use: {
     baseURL: 'https://the-internet.herokuapp.com',
-    trace: 'on-first-retry',
+    trace: 'on',
   },
   projects: [
     {
