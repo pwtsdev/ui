@@ -5,7 +5,8 @@
   "scripts": {
     "pretest": "npx tsc --noEmit && eslint .",
     "test": "npx playwright test",
-    "test:headed": "npm run test -- --headed"
+    "test:headed": "npm run test -- --headed",
+    "report": "npx playwright show-report"
   },
   "keywords": [],
   "author": "",
