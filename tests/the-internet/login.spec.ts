@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test.describe('The Internet - login page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://the-internet.herokuapp.com/login');
+    await page.goto('/login');
     await expect(page).toHaveTitle(/Internet/);
   });
 
