@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('The Internet - invalid credentials login', () => {
+test.describe('M03 - solution', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/login');
     await expect(page).toHaveTitle(/Internet/);
   });
 
-  test('login with invalid username', async ({ page }) => {
+  test('login with invalid username', { tag: ['@M03', '@solution'] }, async ({ page }) => {
     // Arrange
     const username = 'tomsmith123';
     const password = 'SuperSecretPassword!';
@@ -21,7 +21,7 @@ test.describe('The Internet - invalid credentials login', () => {
     await expect(page.getByText(expectedText)).toBeVisible();
   });
 
-  test('login with invalid password', async ({ page }) => {
+  test('login with invalid password', { tag: ['@M03', '@solution'] }, async ({ page }) => {
     // Arrange
     const username = 'tomsmith';
     const password = 'SuperSecretPassword!123';
@@ -36,7 +36,7 @@ test.describe('The Internet - invalid credentials login', () => {
     await expect(page.getByText(expectedText)).toBeVisible();
   });
 
-  test('login with empty credentials', async ({ page }) => {
+  test('login with empty credentials', { tag: ['@M03', '@solution'] }, async ({ page }) => {
     // Arrange
     const username = '';
     const password = '';
@@ -51,7 +51,7 @@ test.describe('The Internet - invalid credentials login', () => {
     await expect(page.getByText(expectedText)).toBeVisible();
   });
 
-  test('login with invalid username and password', async ({ page }) => {
+  test('login with invalid username and password', { tag: ['@M03', '@solution'] }, async ({ page }) => {
     // Arrange
     const username = 'tomsmith123';
     const password = 'SuperSecretPassword!123';
