@@ -16,7 +16,7 @@ test.describe('Basic examples', () => {
     await page.goto('/context_menu');
 
     // dialog handler
-    page.on('dialog', (dialog) => page.waitForTimeout(1000).then(() => dialog.accept()));
+    // page.on('dialog', (dialog) => page.waitForTimeout(1000).then(() => dialog.accept()));
 
     await page.mouse.click(250, 250, { button: 'right' });
 
