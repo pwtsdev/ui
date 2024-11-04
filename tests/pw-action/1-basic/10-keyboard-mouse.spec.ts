@@ -20,6 +20,8 @@ test.describe('Basic examples', () => {
 
     await page.mouse.click(250, 250, { button: 'right' });
 
+    // await page.locator('#hot-spot').click({ button: 'right' });
+
     await expect(page).toHaveTitle(/The Internet/);
   });
 

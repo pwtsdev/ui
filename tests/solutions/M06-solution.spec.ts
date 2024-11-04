@@ -34,7 +34,7 @@ test.describe('M06 - solution', () => {
     await expect(page.getByText(description)).toBeVisible();
   });
 
-  test('number of critical issues is below 5', { tag: ['@M06', '@solution'] }, async ({ page }) => {
+  test('number of critical issues is below 5 - html to object', { tag: ['@M06', '@solution'] }, async ({ page }) => {
     // Arrange
     const issues: IssueTableModel[] = [];
     const priority = 'Krytyczny';
@@ -62,6 +62,20 @@ test.describe('M06 - solution', () => {
 
     // Assert
     const criticalIssues = issues.filter((issue) => issue.priority === priority);
+    expect(criticalIssues.length).toBeLessThan(5);
+  });
+
+  test('number of critical issues is below 5 - locators', { tag: ['@M06', '@solution'] }, async ({ page }) => {
+    // Arrange
+    const priority = 'Krytyczny';
+
+    await page.goto('https://pwts.dev/examples/ui/issues-table.html');
+    const table = page.locator('table');
+
+    // Act
+    const criticalIssues = await table.getByRole('row', { name: priority }).all();
+
+    // Assert
     expect(criticalIssues.length).toBeLessThan(5);
   });
 });
