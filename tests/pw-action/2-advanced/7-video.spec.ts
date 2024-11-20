@@ -7,7 +7,7 @@ test.describe('Advanced examples', () => {
   //  video: 'on',
   //},
 
-  test('video', { tag: '@video' }, async ({ page }) => {
+  test('video', { tag: '@pwadvanced' }, async ({ page }) => {
     await page.goto('/login');
     await page.fill('#username', 'michael');
     await page.locator('#password').pressSequentially('password');
