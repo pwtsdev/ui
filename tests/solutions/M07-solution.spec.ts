@@ -33,7 +33,19 @@ test.describe('M06 - solution', () => {
       `Submit an issue - form validation: title: ${title} + description: ${description} + phoneNumber: ${phoneNumber}`,
       { tag: ['@M07', '@solution'] },
       async ({ page }) => {
-        await page.goto('https://pwts.dev/examples/ui/M07/index.html');
+        // ARRANGE
+        const baseUrl = 'https://pwts.dev/examples/ui/M07/index.html';
+        const defaultDelay = 50;
+        const fileName = 'pwts.txt';
+        const filePath = 'uploads/pwts.txt';
+        const file2Name = 'pwts2.txt';
+        const file2Path = 'uploads/pwts2.txt';
+        const randomNumber = Math.floor(Math.random() * 10000).toString();
+
+        test.slow();
+
+        // ACT
+        await page.goto(baseUrl);
 
         // cookies
         const acceptCookiesButton = page.getByRole('button', { name: 'Accept' });
@@ -44,18 +56,18 @@ test.describe('M06 - solution', () => {
 
         // form
         const iframe = page.frameLocator('iframe');
-        await iframe.locator('#title').pressSequentially(title, { delay: 50 });
-        await iframe.locator('#description').pressSequentially(description, { delay: 50 });
+        await iframe.locator('#title').pressSequentially(title, { delay: defaultDelay });
+        await iframe.locator('#description').pressSequentially(description, { delay: defaultDelay });
 
         // upload
         const uploadPromise = page.waitForEvent('filechooser');
         await iframe.locator('#images').click();
 
         const upload = await uploadPromise;
-        await upload.setFiles(['uploads/pwts.txt', 'uploads/pwts2.txt']);
+        await upload.setFiles([filePath, file2Path]);
 
-        await expect(iframe.getByText('pwts.txt')).toBeVisible();
-        await expect(iframe.getByText('pwts2.txt')).toBeVisible();
+        await expect(iframe.getByText(fileName)).toBeVisible();
+        await expect(iframe.getByText(file2Name)).toBeVisible();
         await expect(iframe.getByText('Uploaded files: 2')).toBeVisible();
 
         // dialog
@@ -67,12 +79,9 @@ test.describe('M06 - solution', () => {
         await iframe.getByRole('button', { name: 'Submit' }).click();
 
         // screenshot
-        function getRandomInt(max: number): number {
-          return Math.floor(Math.random() * max);
-        }
-
-        const randomNumber = getRandomInt(100000).toString();
         await iframe.locator('#alerts-container').screenshot({ path: 'tmp/screenshot' + randomNumber + '.png' });
+
+        // ASSERT
         await expect(iframe.getByText(validationMessage)).toBeVisible();
       },
     );
