@@ -6,6 +6,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 export const ADMIN_LOGIN_SESSION = path.join(__dirname, 'tmp/admin-login-session.json');
 export const USER_LOGIN_SESSION = path.join(__dirname, 'tmp/user-login-session.json');
+export const TI_LOGIN_SESSION = path.join(__dirname, 'tmp/ti-login-session.json');
 
 export default defineConfig({
   testDir: './tests',
@@ -43,6 +44,21 @@ export default defineConfig({
     {
       name: 'login session - teardown',
       testMatch: 'login-session.teardown.ts',
+    },
+    {
+      name: 'the-internet-session',
+      use: { ...devices['Desktop Chrome'], storageState: TI_LOGIN_SESSION },
+      dependencies: ['ti login session - setup'],
+    },
+    {
+      name: 'ti login session - setup',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: 'ti-login-session.setup.ts',
+      teardown: 'ti login session - teardown',
+    },
+    {
+      name: 'ti login session - teardown',
+      testMatch: 'ti-login-session.teardown.ts',
     },
 
     // {
