@@ -30,5 +30,8 @@
     "singleQuote": true,
     "endOfLine": "auto",
     "printWidth": 120
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }

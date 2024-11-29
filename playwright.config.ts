@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
 import path from 'path';
+
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 export const ADMIN_LOGIN_SESSION = path.join(__dirname, 'tmp/admin-login-session.json');
 export const USER_LOGIN_SESSION = path.join(__dirname, 'tmp/user-login-session.json');
