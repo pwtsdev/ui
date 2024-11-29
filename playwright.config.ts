@@ -29,6 +29,22 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'session',
+      use: { ...devices['Desktop Chrome'] },
+      dependencies: ['login session - setup'],
+    },
+    {
+      name: 'login session - setup',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: 'login-session.setup.ts',
+      teardown: 'login session - teardown',
+    },
+    {
+      name: 'login session - teardown',
+      testMatch: 'login-session.teardown.ts',
+    },
+
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
