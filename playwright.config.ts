@@ -14,6 +14,11 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+
+  // GLOBAL SETUP TEARDOWN!
+  globalSetup: require.resolve('./tests/setup/global/global.setup'),
+  globalTeardown: require.resolve('./tests/setup/global/global.teardown'),
+
   use: {
     baseURL: 'https://the-internet.herokuapp.com',
     trace: 'on',
