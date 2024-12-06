@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
+import { ContactUsPage } from '../../src/pages/contact-us.page';
 import { HomePage } from '../../src/pages/home.page';
+import { ReportPage } from '../../src/pages/report.page';
 
 test.describe('Page object', () => {
   test.use({ baseURL: 'https://pwts.dev/examples/ui/po/' });
@@ -18,14 +20,28 @@ test.describe('Page object', () => {
   });
 
   test('Validate report page title and header', { tag: '@po' }, async ({ page }) => {
-    await page.goto('report.html');
-    await expect(page.getByRole('heading', { name: 'Report a Bug' })).toBeVisible();
-    await expect(page).toHaveTitle('BugTracker - Report a Bug');
+    // Arrange
+    const reportPage: ReportPage = new ReportPage(page);
+
+    // Act
+    await reportPage.open();
+
+    // Assert
+    await expect(reportPage.pageHeader()).toBeVisible();
+    const pageTitle = await reportPage.getPageTitle();
+    expect(pageTitle).toEqual('BugTracker - Report a Bug');
   });
 
   test('Validate contact us page title and header', { tag: '@po' }, async ({ page }) => {
-    await page.goto('contact.html');
-    await expect(page.getByRole('heading', { name: 'Contact Us' })).toBeVisible();
-    await expect(page).toHaveTitle('BugTracker - Contact Us');
+    // Arrange
+    const contactUsPage: ContactUsPage = new ContactUsPage(page);
+
+    // Act
+    await contactUsPage.open();
+
+    // Assert
+    await expect(contactUsPage.pageHeader()).toBeVisible();
+    const pageTitle = await contactUsPage.getPageTitle();
+    expect(pageTitle).toEqual('BugTracker - Contact Us');
   });
 });
