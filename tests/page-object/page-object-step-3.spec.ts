@@ -1,77 +1,67 @@
 import { expect, test } from '@playwright/test';
 import { Logger } from 'tslog';
-import { ContactUsPage } from '../../src/pages/contact-us.page';
-import { HomePage } from '../../src/pages/home.page';
-import { ReportPage } from '../../src/pages/report.page';
+import { PageManager } from '../../src/pages/page.manager';
 
 const log = new Logger();
 
 test.describe('Page object', () => {
   test.use({ baseURL: 'https://pwts.dev/examples/ui/po/' });
 
-  test('Validate page headers are displayed correctly', { tag: '@po' }, async ({ page }) => {
-    // Arrange
-    const homePage: HomePage = new HomePage(page);
-    const reportPage: ReportPage = new ReportPage(page);
-    const contactUsPage: ContactUsPage = new ContactUsPage(page);
+  let pm: PageManager;
 
+  test.beforeEach(({ page }) => {
+    pm = new PageManager(page);
+  });
+
+  test('Validate page headers are displayed correctly', { tag: '@po' }, async ({}) => {
     log.info('Opening HomePage');
-    await homePage.open();
-    await expect(homePage.pageHeader()).toBeVisible();
+    await pm.homePage.open();
+    await expect(pm.homePage.pageHeader()).toBeVisible();
 
     log.info('Opening ReportPage');
-    await reportPage.open();
-    await expect(reportPage.pageHeader()).toBeVisible();
+    await pm.reportPage.open();
+    await expect(pm.reportPage.pageHeader()).toBeVisible();
 
     log.info('Opening ContactUsPage');
-    await contactUsPage.open();
-    await expect(contactUsPage.pageHeader()).toBeVisible();
+    await pm.contactUsPage.open();
+    await expect(pm.contactUsPage.pageHeader()).toBeVisible();
   });
 
-  test('Validate home page title and header', { tag: '@po' }, async ({ page }) => {
-    // Arrange
-    const homePage: HomePage = new HomePage(page);
-
+  test('Validate home page title and header', { tag: '@po' }, async ({}) => {
     // Act
-    await homePage.open();
+    await pm.homePage.open();
 
     // Assert
-    await expect(homePage.pageHeader()).toBeVisible();
-    const pageTitle = await homePage.getPageTitle();
+    await expect(pm.homePage.pageHeader()).toBeVisible();
+    const pageTitle = await pm.homePage.getPageTitle();
     expect(pageTitle).toEqual('BugTracker - Home');
 
-    expect(await homePage.getBugTitles()).toHaveLength(3);
-    await expect(homePage.statBox()).toBeVisible();
-    await expect(homePage.recentlyFixedBugsComponent.recentlyFixedBox()).toBeVisible();
+    expect(await pm.homePage.getBugTitles()).toHaveLength(3);
+    await expect(pm.homePage.statBox()).toBeVisible();
+    await expect(pm.homePage.recentlyFixedBugsComponent.recentlyFixedBox()).toBeVisible();
     // eslint-disable-next-line playwright/max-expects
-    expect(await homePage.recentlyFixedBugsComponent.getRecentlyFixedBugs()).toHaveLength(5);
+    expect(await pm.homePage.recentlyFixedBugsComponent.getRecentlyFixedBugs()).toHaveLength(5);
   });
 
-  test('Validate report page title and header', { tag: '@po' }, async ({ page }) => {
-    // Arrange
-    const reportPage: ReportPage = new ReportPage(page);
-
+  test('Validate report page title and header', { tag: '@po' }, async ({}) => {
     // Act
-    await reportPage.open();
+    await pm.reportPage.open();
 
     // Assert
-    await expect(reportPage.pageHeader()).toBeVisible();
-    const pageTitle = await reportPage.getPageTitle();
+    await expect(pm.reportPage.pageHeader()).toBeVisible();
+    const pageTitle = await pm.reportPage.getPageTitle();
     expect(pageTitle).toEqual('BugTracker - Report a Bug');
-    await expect(reportPage.recentlyFixedBugsComponent.recentlyFixedBox()).toBeVisible();
-    expect(await reportPage.recentlyFixedBugsComponent.getRecentlyFixedBugs()).toHaveLength(5);
+    await expect(pm.reportPage.recentlyFixedBugsComponent.recentlyFixedBox()).toBeVisible();
+    expect(await pm.reportPage.recentlyFixedBugsComponent.getRecentlyFixedBugs()).toHaveLength(5);
   });
 
-  test('Validate contact us page title and header', { tag: '@po' }, async ({ page }) => {
-    // Arrange
-    const contactUsPage: ContactUsPage = new ContactUsPage(page);
-
+  test('Validate contact us page title and header', { tag: '@po' }, async ({}) => {
     // Act
-    await contactUsPage.open();
+    await pm.contactUsPage.open();
 
     // Assert
-    await expect(contactUsPage.pageHeader()).toBeVisible();
-    const pageTitle = await contactUsPage.getPageTitle();
+    await expect(pm.contactUsPage.pageHeader()).toBeVisible();
+    const pageTitle = await pm.contactUsPage.getPageTitle();
     expect(pageTitle).toEqual('BugTracker - Contact Us');
   });
 });
