@@ -1,13 +1,21 @@
-import { Locator } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
+import { RecentlyFixedBugsComponent } from '../components/recently-fixed-bugs.component';
 import { BasePage } from './base.page';
 
 export class HomePage extends BasePage {
   protected readonly url = 'index.html';
   protected readonly pageHeaderText = 'Reported Bugs';
 
+  // Components
+  readonly recentlyFixedBugsComponent: RecentlyFixedBugsComponent;
+
+  constructor(page: Page) {
+    super(page);
+    this.recentlyFixedBugsComponent = new RecentlyFixedBugsComponent(page);
+  }
+
   // Locators
   readonly statBox = (): Locator => this.page.locator('div .stats-box');
-  readonly recentlyFixedBox = (): Locator => this.page.locator('div .recent-fixed');
 
   // Action
   async getBugTitles(): Promise<string[]> {

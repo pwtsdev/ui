@@ -20,7 +20,9 @@ test.describe('Page object', () => {
 
     expect(await homePage.getBugTitles()).toHaveLength(3);
     await expect(homePage.statBox()).toBeVisible();
-    await expect(homePage.recentlyFixedBox()).toBeVisible();
+    await expect(homePage.recentlyFixedBugsComponent.recentlyFixedBox()).toBeVisible();
+    // eslint-disable-next-line playwright/max-expects
+    expect(await homePage.recentlyFixedBugsComponent.getRecentlyFixedBugs()).toHaveLength(5);
   });
 
   test('Validate report page title and header', { tag: '@po' }, async ({ page }) => {
@@ -34,7 +36,8 @@ test.describe('Page object', () => {
     await expect(reportPage.pageHeader()).toBeVisible();
     const pageTitle = await reportPage.getPageTitle();
     expect(pageTitle).toEqual('BugTracker - Report a Bug');
-    await expect(reportPage.recentlyFixedBox()).toBeVisible();
+    await expect(reportPage.recentlyFixedBugsComponent.recentlyFixedBox()).toBeVisible();
+    expect(await reportPage.recentlyFixedBugsComponent.getRecentlyFixedBugs()).toHaveLength(5);
   });
 
   test('Validate contact us page title and header', { tag: '@po' }, async ({ page }) => {
