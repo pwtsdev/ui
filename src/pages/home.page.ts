@@ -21,4 +21,8 @@ export class HomePage extends BasePage {
   async getBugTitles(): Promise<string[]> {
     return await this.page.locator('main li a').allInnerTexts();
   }
+
+  getAllBugsWithPriority(priority: string): Locator {
+    return this.page.locator(`li:has-text("${priority}")`).locator('a');
+  }
 }
