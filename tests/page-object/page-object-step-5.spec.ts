@@ -1,7 +1,4 @@
-import { Logger } from 'tslog';
 import { expect, test } from '../../src/fixtures/pom.fixture';
-
-const log = new Logger();
 
 test.describe('Page object', () => {
   test.use({ baseURL: 'https://pwts.dev/examples/ui/po/' });
@@ -9,7 +6,7 @@ test.describe('Page object', () => {
   test(
     'Validate page headers are displayed correctly',
     { tag: '@po5' },
-    async ({ homePage, reportPage, contactUsPage }) => {
+    async ({ homePage, reportPage, contactUsPage, log }) => {
       log.info('Opening HomePage');
       await homePage.open();
       await expect(homePage.pageHeader()).toBeVisible();
