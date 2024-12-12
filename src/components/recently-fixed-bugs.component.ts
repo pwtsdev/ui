@@ -1,10 +1,7 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator } from '@playwright/test';
+import { BaseComponent } from './base.component';
 
-export class RecentlyFixedBugsComponent {
-  constructor(protected page: Page) {
-    this.page = page;
-  }
-
+export class RecentlyFixedBugsComponent extends BaseComponent {
   // Locators
   readonly recentlyFixedBox = (): Locator => this.page.locator('div .recent-fixed');
 

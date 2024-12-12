@@ -1,10 +1,7 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator } from '@playwright/test';
+import { BaseComponent } from './base.component';
 
-export class ConfirmationBoxComponent {
-  constructor(protected page: Page) {
-    this.page = page;
-  }
-
+export class ConfirmationBoxComponent extends BaseComponent {
   // Locators
   readonly box = (): Locator => this.page.locator('div[aria-labelledby="swal2-title"]');
 
