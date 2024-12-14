@@ -1,4 +1,4 @@
-# pwts-the-internet
+# pwts-core-ui
 
 This project is designed to help you learn automated testing with Playwright and is proudly provided by [<pwts.dev>](https://pwts.dev) team. 
 
