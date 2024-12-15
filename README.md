@@ -12,7 +12,7 @@ The project features a variety of tests aimed at enhancing your skills in automa
 
 Before you start, make sure you have the following installed:
 
-- [Node.js](https://nodejs.org) (v16 or later)
+- [Node.js](https://nodejs.org) (v20 or later)
 - [npm](https://www.npmjs.com/)
 
 ## Setup
